@@ -11,7 +11,8 @@ Route::get('/', function () {
 
 Route::get('/jobs', function () {
     //$jobs = job::all(); // N+1 Problem
-    $jobs = job::with('employer')->get(); // with eager loading, resolve N+1 Problem
+    //$jobs = job::with('employer')->get(); // with eager loading, resolve N+1 Problem
+    $jobs = job::with('employer')->simplePaginate(5); // with pagination use paginate or cursorpagination
     return view('jobs', [
         'jobs' => $jobs
         //'jobs' => job::all() // N+1 Problem, on way to do so : static function in job model class
