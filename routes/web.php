@@ -10,8 +10,10 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
+    $jobs = job::with('employer')->get(); // with eager loading, resolve N+1 Problem
     return view('jobs', [
-        'jobs' => job::all() // static function in job model class
+        'jobs' => $jobs
+        //'jobs' => job::all() // N+1 Problem, on way to do so : static function in job model class
     ]);
 });
 
