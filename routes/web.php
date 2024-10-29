@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::get('/jobs', function () {
+    //$jobs = job::all(); // N+1 Problem
     $jobs = job::with('employer')->get(); // with eager loading, resolve N+1 Problem
     return view('jobs', [
         'jobs' => $jobs
