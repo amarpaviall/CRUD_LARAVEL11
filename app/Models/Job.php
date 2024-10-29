@@ -15,4 +15,10 @@ class Job extends Model
     {
         return $this->belongsTo(Employer::class);
     }
+
+    public function tags()
+    {
+        //our table has job_listing_id instead of job_id
+        return $this->belongsToMany(Tags::class, foreignPivotKey: "job_listing_id");
+    }
 }
