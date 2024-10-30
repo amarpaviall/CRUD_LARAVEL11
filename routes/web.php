@@ -1,32 +1,31 @@
 <?php
 
-
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Job;
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-Route::get('/jobs', function () {
-    //$jobs = job::all(); // N+1 Problem
-    //$jobs = job::with('employer')->get(); // with eager loading, resolve N+1 Problem
-    $jobs = job::with('employer')->simplePaginate(5); // with pagination use paginate or cursorpagination
-    return view('jobs', [
-        'jobs' => $jobs
-        //'jobs' => job::all() // N+1 Problem, on way to do so : static function in job model class
-    ]);
-});
+//shortcut to view pages
+Route::view('/', 'home');
 
-Route::get('/job/{id}', function ($id) {
-    //$jobs = $jobs;
-    //$job = Arr::first(job::all(), fn($job) => $job['id'] == $id); 
-    //dd($job);
-    $job = job::find($id);
-    return view('job', ['job' => $job]);
-});
+// Route::controller(JobController::class)->group(function () {
+//     Route::get('/jobs', 'index');
+//     Route::get('/job/create', 'create');
+//     Route::get('/job/{job}', 'show');
+//     Route::post('/jobs', 'store');
+//     Route::get('/job/{job}/edit', 'edit');
+//     Route::patch('/job/{job}', 'update');
+//     Route::delete('/job/{job}', 'destroy');
+// });
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+// all methods in just one resource
+Route::resource('job', JobController::class); //job will be all pages url
+
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+Route::view('/contact', 'contact');
