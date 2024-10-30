@@ -37,7 +37,7 @@ class JobController extends Controller
             'salary' => request('salary'),
             'employer_id' => 1,
         ]);
-        return redirect('/jobs');
+        return redirect('/job');
     }
 
     public function edit(Job $job)
@@ -62,6 +62,6 @@ class JobController extends Controller
     public function destroy(Job $job)
     {
         $job->delete();
-        return redirect('/jobs');
+        return redirect('/job');
     }
 }
