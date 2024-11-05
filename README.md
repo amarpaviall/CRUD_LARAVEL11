@@ -1,4 +1,4 @@
-# CRUD Application with Laravel 11
+# CRUD Application with Laravel 11  
 
 A simple CRUD (Create, Read, Update, Delete) application built with Laravel 11. 
 This project serves as a demonstration of basic CRUD operations on a database using Laravel's Eloquent ORM and resourceful routes.
