@@ -1,59 +1,38 @@
 <?php
 
-use Illuminate\Support\Arr;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+use App\Models\Job;
 
-Route::get('/jobs', function () {
-    return view('jobs', [
-        'jobs' => [
-            [
-                'id' => 1,
-                'title' => 'Director',
-                'salary' => 40000,
-            ],
-            [
-                'id' => 2,
-                'title' => 'Developer',
-                'salary' => 30000,
-            ],
-            [
-                'id' => 3,
-                'title' => 'Teacher',
-                'salary' => 25000,
-            ],
-        ]
+// Route::get('/', function () {
+//     return view('home');
+// });
 
-    ]);
-});
+//shortcut to view pages
+Route::view('/', 'home');
 
-Route::get('/job/{id}', function ($id) {
-    $jobs = [
-        [
-            'id' => 1,
-            'title' => 'Director',
-            'salary' => 40000,
-        ],
-        [
-            'id' => 2,
-            'title' => 'Developer',
-            'salary' => 30000,
-        ],
-        [
-            'id' => 3,
-            'title' => 'Teacher',
-            'salary' => 25000,
-        ],
-    ];
-    $job = Arr::first($jobs, fn($job) => $job['id'] == $id);
-    //dd($job);
+// Route::controller(JobController::class)->group(function () {
+//     Route::get('/jobs', 'index');
+//     Route::get('/job/create', 'create');
+//     Route::get('/job/{job}', 'show');
+//     Route::post('/jobs', 'store');
+//     Route::get('/job/{job}/edit', 'edit');
+//     Route::patch('/job/{job}', 'update');
+//     Route::delete('/job/{job}', 'destroy');
+// });
 
-    return view('job', ['job' => $job]);
-});
+// all methods in just one resource
+Route::resource('job', JobController::class); //job will be all pages url
 
-Route::get('/contact', function () {
-    return view('contact');
-});
+// Route::get('/contact', function () {
+//     return view('contact');
+// });
+Route::view('/contact', 'contact');
+
+Route::get('/register', [RegisterController::class, 'create']);
+Route::post('/register', [RegisterController::class, 'store']);
+
+Route::get('/login', [LoginController::class, 'create']);
